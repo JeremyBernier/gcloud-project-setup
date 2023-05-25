@@ -1,0 +1,20 @@
+{
+  "name": "gcloud-project-setup",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": {
+    "name": "Jeremy Bernier",
+    "email": "jeremy.s.bernier@gmail.com",
+    "url": "https://www.jbernier.com"
+  },
+  "keywords": ["gcloud"],
+  "license": "ISC",
+  "dependencies": {
+    "open": "^9.1.0"
+  }
+}
