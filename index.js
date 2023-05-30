@@ -23,16 +23,22 @@ async function init() {
   if (!projectexists) {
     console.log("Creating project...");
     await exec(`gcloud projects create ${projectName}`);
+
+    console.log("Project created!");
   }
 
   await exec(`gcloud config set project ${projectName}`);
+
+  console.log("Enabling Cloud Resource Manager API");
+
+  await exec(`gcloud services enable cloudresourcemanager.googleapis.com`);
 
   open(
     `https://console.cloud.google.com/billing/linkedaccount?project=${projectName}`
   );
 
   await query(
-    `Please enable billing on your account by going to: https://console.cloud.google.com/billing/linkedaccount?project=$PROJECT_ID
+    `Please enable billing on your account by going to: https://console.cloud.google.com/billing/linkedaccount?project=${projectName}
     
     When you're finished, press the enter key to continue...`
   );
@@ -53,6 +59,8 @@ async function init() {
 
   const serviceAccountEmail = `${serviceAccountName}@${projectName}.iam.gserviceaccount.com`;
   console.log(`Service account email: ${serviceAccountEmail}`);
+
+  console.log("Enabling necessary APIs...");
 
   await exec(`gcloud projects add-iam-policy-binding ${projectName} \
   --member=serviceAccount:${serviceAccountEmail} \
