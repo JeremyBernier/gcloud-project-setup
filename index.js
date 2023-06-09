@@ -18,9 +18,9 @@ function query(question) {
 async function init() {
   const projectName = await query("Project name: ");
 
-  const projectexists = await query("Does this project already exist? (y/N) ");
+  const projectExists = await query("Does this project already exist? (y/N) ");
 
-  if (!projectexists) {
+  if (!projectExists || projectExists.toLowerCase() === "n") {
     console.log("Creating project...");
     await exec(`gcloud projects create ${projectName}`);
 
@@ -43,6 +43,8 @@ async function init() {
     When you're finished, press the enter key to continue...`
   );
 
+  console.log("Enabling Cloud Build, Cloud Run, and Container Registry APIs");
+
   await exec(
     `gcloud services enable cloudbuild.googleapis.com run.googleapis.com containerregistry.googleapis.com`
   );
@@ -60,7 +62,9 @@ async function init() {
   const serviceAccountEmail = `${serviceAccountName}@${projectName}.iam.gserviceaccount.com`;
   console.log(`Service account email: ${serviceAccountEmail}`);
 
-  console.log("Enabling necessary APIs...");
+  console.log(
+    "Granting the service account Give the service account Cloud Run Admin, Storage Admin, and Service Account User roles."
+  );
 
   await exec(`gcloud projects add-iam-policy-binding ${projectName} \
   --member=serviceAccount:${serviceAccountEmail} \
@@ -74,11 +78,22 @@ gcloud projects add-iam-policy-binding ${projectName} \
   --member=serviceAccount:${serviceAccountEmail} \
   --role=roles/iam.serviceAccountUser`);
 
+  console.log("Done");
+
   console.log("Generating key.json");
   await exec(`gcloud iam service-accounts keys create key.json \
   --iam-account ${serviceAccountEmail}`);
 
   console.log("Finished!");
+
+  console.log("-------");
+  console.log(
+    "When setting up CI/CD (eg. with GitHub actions), use the following variables:"
+  );
+  console.log(`GCP_PROJECT_ID=${projectName}`);
+  console.log(`GCP_APP_NAME=`);
+  console.log(`GCP_EMAIL=${serviceAccountEmail}`);
+  console.log(`GCP_CREDENTIALS=<Insert key.json contents>`);
 
   /************/
 
