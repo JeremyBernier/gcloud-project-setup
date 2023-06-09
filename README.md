@@ -13,10 +13,15 @@ Basically it runs through the steps in this [tutorial](https://cloud.google.com/
 
 Follow the rest of the tutorial to finish setting up CI/CD with GitHub Actions: https://cloud.google.com/community/tutorials/cicd-cloud-run-github-actions
 
-Note: I whipped this up in an hour, so don't expect anything elaborate or comprehensive. If anything you can just use this as a reference.
+*Note: I whipped this up in an hour, so don't expect anything elaborate or comprehensive. If anything you can just use this as a reference. It works though.*
 
 ## Instructions
 
 ```
 npm start
 ```
+
+### Say Thanks
+
+- [Buy me a coffee](https://www.buymeacoffee.com/jbernier)
+- Personal website: [jbernier.com](https://www.jbernier.com/)
