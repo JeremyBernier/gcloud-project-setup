@@ -104,7 +104,6 @@ gcloud projects add-iam-policy-binding ${projectId} \
     "When setting up CI/CD (eg. with GitHub actions), use the following variables:"
   );
   console.log(`GCP_PROJECT_ID=${projectId}`);
-  console.log(`GCP_APP_NAME=`);
   console.log(`GCP_EMAIL=${serviceAccountEmail}`);
   console.log(`GCP_CREDENTIALS=<Insert key.json contents>`);
 
