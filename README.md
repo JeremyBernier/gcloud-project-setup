@@ -25,3 +25,4 @@ npm start
 
 - [Buy me a coffee](https://www.buymeacoffee.com/jbernier)
 - Personal website: [jbernier.com](https://www.jbernier.com/)
+- More dev resources: [codefire.dev](https://codefire.dev/)
