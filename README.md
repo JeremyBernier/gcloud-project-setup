@@ -18,6 +18,7 @@ Follow the rest of the tutorial to finish setting up CI/CD with GitHub Actions: 
 ## Instructions
 
 ```
+npm install
 npm start
 ```
 

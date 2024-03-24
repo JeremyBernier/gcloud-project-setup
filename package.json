@@ -12,7 +12,9 @@
     "email": "jeremy.s.bernier@gmail.com",
     "url": "https://www.jbernier.com"
   },
-  "keywords": ["gcloud"],
+  "keywords": [
+    "gcloud"
+  ],
   "license": "ISC",
   "dependencies": {
     "open": "^9.1.0"
