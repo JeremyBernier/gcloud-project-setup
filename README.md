@@ -1,6 +1,8 @@
-# Google Cloud project setup script for CI/CD
+# Google Cloud project setup script for CI/CD with Google Cloud Run
 
-This is a simple script that runs through the steps you'd need to go through to set up CI/CD (Continuous Integration / Continuous Deployment) with Google Cloud. Necessary for any CI/CD (eg. GitHub Actions).
+[My full tutorial on setting up Google Cloud Run with CI/CD](https://jeremybernier.notion.site/How-to-Set-Up-Google-Cloud-Run-with-GitHub-Actions-f198229acf1b49788e67e9c2ff0f0e6e)
+
+This is a simple script that runs through the steps you'd need to go through to set up CI/CD (Continuous Integration / Continuous Deployment) with Google Cloud. The script will help you create a new project, or use an existing project.
 
 Basically it runs through the steps in this [tutorial](https://cloud.google.com/community/tutorials/cicd-cloud-run-github-actions) up until Step 8 where the `key.json` file is generated.
 
@@ -21,6 +23,12 @@ Follow the rest of the tutorial to finish setting up CI/CD with GitHub Actions: 
 npm install
 npm start
 ```
+
+### FAQ
+
+**I have no idea what this is. What does this do in plain English?**
+
+It creates a new Google Cloud Run project for you, and does all the work you'd need to do to hook it up to CI/CD with GitHub Actions (so that anytime you update your GitHub repo, your deployed service will automatically update with the latest code)
 
 ### Say Thanks
 

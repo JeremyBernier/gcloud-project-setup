@@ -27,14 +27,28 @@ async function init() {
 
   console.log("Google Cloud Project IDs", projectIds);
 
-  const projectId = await query("Project ID: ");
+  let projectId = await query("Project ID: ");
 
   if (!projectIdsMap.has(projectId)) {
-    await query(
-      "Project does not exist so new project will be created (press enter to continue)"
-    );
-    console.log("Creating project...");
-    await exec(`gcloud projects create ${projectId}`);
+    let retry = false;
+    do {
+      if (!retry) {
+        await query(
+          "Project does not exist so new project will be created (press ENTER to continue):"
+        );
+      } else {
+        projectId = await query("Project ID: ");
+      }
+      console.log("Creating project...");
+      try {
+        await exec(`gcloud projects create ${projectId}`);
+        retry = false;
+      } catch (err) {
+        console.error(err);
+        retry = true;
+        console.log("Name is already taken, please try another name");
+      }
+    } while (retry);
     console.log("Project created!");
   }
 
@@ -76,7 +90,7 @@ async function init() {
   console.log(`Service account email: ${serviceAccountEmail}`);
 
   console.log(
-    "Granting the service account Give the service account Cloud Run Admin, Storage Admin, and Service Account User roles."
+    "Granting the service account Cloud Run Admin, Storage Admin, and Service Account User roles."
   );
 
   await exec(`gcloud projects add-iam-policy-binding ${projectId} \
@@ -94,18 +108,27 @@ gcloud projects add-iam-policy-binding ${projectId} \
   console.log("Done");
 
   console.log("Generating key.json");
-  await exec(`gcloud iam service-accounts keys create key.json \
-  --iam-account ${serviceAccountEmail}`);
+  await exec(
+    `gcloud iam service-accounts keys create key.json --iam-account ${serviceAccountEmail}`
+  );
 
-  console.log("Finished!");
-
+  console.log("Generated key.json");
   console.log("-------");
+  console.log(
+    "Please go to https://github.com/GoogleCloudPlatform/community/blob/master/archived/cicd-cloud-run-github-actions/index.md#github"
+  );
+  console.log(
+    "Follow the instructions there. You will need to set up a secrets environment in your GitHub using this key.json file"
+  );
+
   console.log(
     "When setting up CI/CD (eg. with GitHub actions), use the following variables:"
   );
   console.log(`GCP_PROJECT_ID=${projectId}`);
   console.log(`GCP_EMAIL=${serviceAccountEmail}`);
   console.log(`GCP_CREDENTIALS=<Insert key.json contents>`);
+
+  console.log("Script is now finished. Goodbye!");
 
   /************/
 
